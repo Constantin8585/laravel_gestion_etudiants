@@ -3,62 +3,64 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Etudiant;
+
 
 class EtudiantController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $etudiants = Etudiant::all();
+        return view('etudiants.index', compact('etudiants'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('etudiants.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nom' => 'required',
+            'prenom' => 'required',
+            'email' => 'required|email|unique:etudiants',
+            'telephone' => 'required'
+        ]);
+
+        Etudiant::create($request->all());
+        return redirect()->route('etudiants.index')
+            ->with('success', 'Etudiant créé avec succès.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function show(Etudiant $etudiant)
     {
-        //
+        return view('etudiants.show', compact('etudiant'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function edit(Etudiant $etudiant)
     {
-        //
+        return view('etudiants.edit', compact('etudiant'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Etudiant $etudiant)
     {
-        //
+        $request->validate([
+            'nom' => 'required',
+            'prenom' => 'required',
+            'email' => 'required|email|unique:etudiants,email,' . $etudiant->id,
+            'telephone' => 'required'
+        ]);
+
+        $etudiant->update($request->all());
+        return redirect()->route('etudiants.index')
+            ->with('success', 'Etudiant mis à jour avec succès.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy(Etudiant $etudiant)
     {
-        //
+        $etudiant->delete();
+        return redirect()->route('etudiants.index')
+            ->with('success', 'Etudiant supprimé avec succès.');
     }
 }

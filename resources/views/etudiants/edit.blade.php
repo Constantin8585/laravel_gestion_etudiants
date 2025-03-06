@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Modifier un étudiant</title>
+    <link rel="stylesheet" href="{{ asset('css/edit.css') }}">
 </head>
 <body>
 <h1>Modifier un étudiant</h1>

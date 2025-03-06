@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Ajouter un étudiant</title>
+    <link rel="stylesheet" href="{{ asset('css/create.css') }}">
 </head>
 <body>
 <h1>Ajouter un étudiant</h1>

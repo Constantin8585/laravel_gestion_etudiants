@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Liste des étudiants</title>
+    <link rel="stylesheet" href="{{ asset('css/index.css') }}">
 </head>
 <body>
 <h1>Liste des étudiants</h1>
